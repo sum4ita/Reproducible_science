@@ -11,12 +11,14 @@ library(palmerpenguins)
 library(janitor)
 library(here)
 
+head(penguins_raw)
+colnames(penguins_raw)
 
 here("data")
 
 here("data", "penguins_raw.csv")
 
-write_csv(penguins_raw, "Reproducible_science/data/penguins_raw.csv")
+write_csv(penguins_raw, here("data", "penguins_raw.csv"))
 
 
 penguins_clean <- penguins_raw %>%
@@ -124,7 +126,7 @@ here("data")
 
 here("data", "penguins_raw.csv")
 
-write_csv(penguins_raw, "Reproducible_science/data/penguins_raw.csv")
+write_csv(penguins_raw, here("data", "penguins_raw.csv"))
 
 penguins_clean <- penguins_raw %>%
   select(-Comments) %>%
