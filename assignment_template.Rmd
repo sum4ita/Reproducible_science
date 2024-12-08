@@ -1,0 +1,320 @@
+---
+title: "Homework Template"
+output:
+  html_document: default
+  pdf_document: default
+date: "2023-10-09"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+*The following is a template .rmd RMarkdown file for you to use for your homework submission.*
+
+*Please Knit your .rmd to a PDF format or HTML and submit that with no identifiers like your name.*
+
+*To create a PDF, first install tinytex and load the package. Then press the Knit arrow and select "Knit to PDF".*
+
+```{r}
+
+```
+
+
+## QUESTION 01: Data Visualisation for Science Communication
+
+*Create a figure using the Palmer Penguin dataset that is correct but badly communicates the data. **Do not make a boxplot**.*
+
+*Use the following references to guide you:*
+
+-   [*https://www.nature.com/articles/533452a*](https://www.nature.com/articles/533452a){.uri}
+-   [*https://elifesciences.org/articles/16800*](https://elifesciences.org/articles/16800){.uri}
+
+*Note: Focus on visual elements rather than writing misleading text on it.*
+
+### a) Provide your figure here:
+
+```{r bad figure code, echo=FALSE}
+
+# There is no need to provide the code for your bad figure, just use echo=FALSE so the code is hidden. Make sure your figure is visible after you knit it. 
+
+library(tidyverse)
+library(palmerpenguins)
+library(janitor)
+library(here)
+
+head(penguins_raw)
+colnames(penguins_raw)
+
+here("data")
+
+here("data", "penguins_raw.csv")
+
+write_csv(penguins_raw, "Reproducible_science/data/penguins_raw.csv")
+
+
+penguins_clean <- penguins_raw %>%
+  select(-Comments) %>%
+  select(-starts_with("Delta")) %>%
+  clean_names() # Uses janitor package
+
+colnames(penguins_clean)
+
+library(ggplot2)
+ggplot(penguins_clean, aes(x = `body_mass_g`, y = `flipper_length_mm`)) +
+  geom_point(color = "grey", alpha = 0.2) +
+  labs(
+    title = "Scatter Plot: Body Mass vs. Flipper Length",
+    x = "Body Mass (g)",
+    y = "Flipper Length (mm)"
+  ) +
+  scale_x_continuous(limits = c(3000, 5000)) + # Truncated x-axis
+  scale_y_continuous(limits = c(170, 200)) +  # Truncated y-axis
+  theme_minimal()
+
+
+
+```
+
+### b) Write about how your design choices mislead the reader about the underlying data (200-300 words).
+
+The x and y axis are both truncated so there are points that are not seen on the graph that lie outside the range of the graph. The x axis is 3000 to 5000 whilst the y axis is 170 to 200. This misleads the reader as the data seems much more clustered and consistent that it actually is. By skipping points that could be considered outliers and also decreasing the broader range, there could be a stronger perceived strength in association between flipper length and body mass, whilst this may not be the case. 
+
+Another poor design choice to be considered is the colouring. There are 3 different species of penguins being represented in this data currently, and in this graph it is not distinguishable which is misleading as the data seems to belong to one group only when this is not the case. The relationship between flipper length and body mass could be different between each species, however this has not been visualised.
+
+Furthermore, there is poor visual clarity in the scatter plot due to the dull grey colour and use of low opacity (alpha = 0.2). This reduces visibility and many overlapping plots may not be seen. It can also affect how we analyse density of data in different regions and mislead readers by obscuring patterns in the data.
+
+
+*Include references.*
+
+------------------------------------------------------------------------
+
+## QUESTION 2: Data Pipeline
+
+*Write a data analysis pipeline in your .rmd RMarkdown file. You should be aiming to write a clear explanation of the steps, the figures visible, as well as clear code.*
+
+*Your code should include the steps practiced in the lab session:*
+
+-   *Load the data*
+
+-   *Appropriately clean the data*
+
+-   *Create an Exploratory Figure (**not a boxplot**)*
+
+-   *Save the figure*
+
+-   ***New**: Run a statistical test*
+
+-   ***New**: Create a Results Figure*
+
+-   *Save the figure*
+
+*An exploratory figure shows raw data, such as the distribution of the data. A results figure demonstrates the stats method chosen, and includes the results of the stats test.*
+
+*Between your code, communicate clearly what you are doing and why.*
+
+*Your text should include:*
+
+-   *Introduction*
+
+-   *Hypothesis*
+
+-   *Stats Method*
+
+-   *Results*
+
+-   *Discussion*
+
+-   *Conclusion*
+
+*You will be marked on the following:*
+
+### a) Your code for readability and functionality
+
+### b) Your figures for communication
+
+### c) Your text communication of your analysis
+
+*Below is a template you can use.*
+
+------------------------------------------------------------------------
+
+### Introduction
+
+I will be exploring the relationship between flipper length and body mass in chinstrap penguins.
+
+```{r Data Exploration}
+
+
+
+library(tidyverse)
+library(palmerpenguins)
+library(janitor)
+library(here)
+library(ggplot2)
+
+head(penguins_raw)
+colnames(penguins_raw)
+
+here("data")
+
+here("data", "penguins_raw.csv")
+
+write_csv(penguins_raw, "Reproducible_science/data/penguins_raw.csv")
+
+penguins_clean <- penguins_raw %>%
+  select(-Comments) %>%
+  select(-starts_with("Delta")) %>%
+  clean_names() 
+
+colnames(penguins_clean)
+
+
+```
+
+### Hypothesis
+
+H0: There will be no significant difference in flipper length as body mass changes.
+
+HA: There will be a significant increase in flipper length as body mass increases.
+
+### Statistical Methods
+
+I am first carrying out a normality test to check if the data set is approximately normally distributed so I can carry out a parametric statistical test.
+
+```{r Statistics}
+
+
+#Normality test
+
+
+chinstrap_data <- penguins_clean[278:375, ]
+
+chinstrap_lm <-lm(flipper_length_mm ~ body_mass_g, data = chinstrap_data)
+
+
+# Set up a 2x2 plotting layout
+par(mfrow = c(2, 2))  # Set plotting layout to 2x2
+
+# 1. Residuals vs. Fitted
+plot(chinstrap_lm$fitted.values, chinstrap_lm$residuals, 
+     main = "Residuals vs Fitted", 
+     xlab = "Fitted Values", 
+     ylab = "Residuals", 
+     pch = 20, col = "darkgreen")
+abline(h = 0, col = "red", lty = 2)
+
+# 2. QQ Plot for Residuals
+qqnorm(chinstrap_lm$residuals, 
+       main = "QQ Plot of Residuals", 
+       pch = 20, col = "darkgreen")
+qqline(chinstrap_lm$residuals, col = "red", lty = 2)
+
+# 3. Scale-Location Plot
+plot(chinstrap_lm$fitted.values, sqrt(abs(chinstrap_lm$residuals)), 
+     main = "Scale-Location Plot", 
+     xlab = "Fitted Values", 
+     ylab = "Sqrt(Standardized Residuals)", 
+     pch = 20, col = "darkgreen")
+abline(h = 0, col = "red", lty = 2)
+
+# 4. Residuals vs. Leverage
+plot(chinstrap_lm, which = 5, 
+     main = "Residuals vs Leverage", 
+     col = "darkgreen", pch = 20)
+
+
+
+
+```
+
+### Results & Discussion
+
+From the normality test we can see that the QQ plot the data follows the diagonal line so the data set fulfills the assumptions for parametric statistical testing and is approximately normally distributed so we can do a Pearson's correlation test and do a linear regression analysis. 
+
+```{r Plotting Results}
+
+#Scatter plot showing body mass against flipper length 
+
+ggplot(data = penguins_clean[278:345, ],
+       aes(x = body_mass_g, y = flipper_length_mm)) + 
+    geom_point(color = "darkgreen", alpha = 0.7) +
+    
+labs(title = "Scatter Plot: Body Mass vs Flipper Length",
+    x = "Body Mass (g)",
+    y = "Flipper Length (mm)"
+  ) +
+  theme_minimal()
+
+
+#Correlation test 
+
+cor.test(penguins_clean$body_mass_g[278:345], 
+         penguins_clean$flipper_length_mm[278:345], 
+         method = "pearson")  
+
+
+#Linear regression 
+
+summary(chinstrap_lm)
+
+
+ggplot(data = penguins_clean[278:345, ], aes(x = body_mass_g, y = flipper_length_mm)) +
+  geom_point(color = "darkgreen", alpha = 0.7) +
+  geom_smooth(method = "lm", color = "red") +
+  labs(
+    title = "Linear Regression: Flipper Length vs Body Mass",
+    x = "Body Mass (g)",
+    y = "Flipper Length (mm)"
+  ) +
+  theme_minimal()
+
+
+
+
+```
+
+### Conclusion
+
+The results obtained from both the Pearson's correlation test and the linear regression analysis shows a statistically significant positive relationship between body mass and flipper length.
+
+The Pearson correlation coefficient (r=0.6398) shows a moderately strong positive correlation and the p value (p=5.584e-09) is highly significant as the p value is smaller then 0.001 so we can reject the null hypothesis. The 95% confidence interval for the correlation coefficient (0.4722 to 0.7628) also supports this.
+
+The linear regression analysis also shows agreement with these results. The slope coefficient (β1=0.01188) shows that on average an increase in 1 gram of body mass leads to an increase of 0.01188 mm in flipper length. The intercept (β0=151.49) suggests 151.49mm to be the flipper length when body mass is 0, however this is not realistic. Both the slope and intercept are however significant as the p value (p=5.58e-09) is smaller than 0.001. This model explains approximately 40.94% of the variance in flipper length (R^2=0.4094) which suggests the model is not sufficient for high prevision predictions as almost 60% of variation is unexplained. 
+
+Both analysis suggest a statistically significant positive relationship between body mass and flipper length. The linear regression model does show the relationship but it also suffests that there may be other factors influencing flipper length as seen through the unexplained variation and exploring mroe variables could improve the model.
+
+------------------------------------------------------------------------
+
+## QUESTION 3: Open Science
+
+### a) GitHub
+
+*Upload your RProject you created for **Question 2** and any files and subfolders used to GitHub. Do not include any identifiers such as your name. Make sure your GitHub repo is public.*
+
+*GitHub link:*
+https://github.com/sum4ita/Reproducible_science
+
+*You will be marked on your repo organisation and readability.*
+
+### b) Share your repo with a partner, download, and try to run their data pipeline.
+
+*Partner's GitHub link:*
+
+*You **must** provide this so I can verify there is no plagiarism between you and your partner.*
+
+### c) Reflect on your experience running their code. (300-500 words)
+
+-   *What elements of your partner's code helped you to understand their data pipeline?*
+
+-   *Did it run? Did you need to fix anything?*
+
+-   *What suggestions would you make for improving their code to make it more understandable or reproducible, and why?*
+
+-   *If you needed to alter your partner's figure using their code, do you think that would be easy or difficult, and why?*
+
+### d) Reflect on your own code based on your experience with your partner's code and their review of yours. (300-500 words)
+
+-   *What improvements did they suggest, and do you agree?*
+
+-   *What did you learn about writing code for other people?*
