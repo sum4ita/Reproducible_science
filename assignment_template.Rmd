@@ -107,7 +107,7 @@ Furthermore, there is poor visual clarity in the scatter plot due to the dull gr
 
 ### Introduction
 
-I will be exploring the relationship between flipper length and body mass in chinstrap penguins.
+The data in this project has been obtained from the Palmer penguin package which contains data about 3 different penguin species, Gentoo, Adelie and Chinstrap. The dataset contains information about multiple variables and characteristics of the penguins but I will be exploring body mass and flipper length of penguins and observe if there is a relationship between these two variables.
 
 ```{r Data Exploration}
 
@@ -146,7 +146,7 @@ HA: There will be a significant increase in flipper length as body mass increase
 
 ### Statistical Methods
 
-I am first carrying out a normality test to check if the data set is approximately normally distributed so I can carry out a parametric statistical test.
+I am first carrying out a normality test to check if the data set is approximately normally distributed and fits the assumtpions required to carry out parametric statistical tests.
 
 ```{r Statistics}
 
