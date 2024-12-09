@@ -51,63 +51,15 @@ Another poor design choice to be considered is the colouring. There are 3 differ
 Furthermore, there is poor visual clarity in the scatter plot due to the dull grey colour and use of low opacity (alpha = 0.2). This reduces visibility and many overlapping plots may not be seen. It can also affect how we analyse density of data in different regions and mislead readers by obscuring patterns in the data.
 
 
-*Include references.*
 
 ------------------------------------------------------------------------
 
 ## QUESTION 2: Data Pipeline
 
-*Write a data analysis pipeline in your .rmd RMarkdown file. You should be aiming to write a clear explanation of the steps, the figures visible, as well as clear code.*
-
-*Your code should include the steps practiced in the lab session:*
-
--   *Load the data*
-
--   *Appropriately clean the data*
-
--   *Create an Exploratory Figure (**not a boxplot**)*
-
--   *Save the figure*
-
--   ***New**: Run a statistical test*
-
--   ***New**: Create a Results Figure*
-
--   *Save the figure*
-
-*An exploratory figure shows raw data, such as the distribution of the data. A results figure demonstrates the stats method chosen, and includes the results of the stats test.*
-
-*Between your code, communicate clearly what you are doing and why.*
-
-*Your text should include:*
-
--   *Introduction*
-
--   *Hypothesis*
-
--   *Stats Method*
-
--   *Results*
-
--   *Discussion*
-
--   *Conclusion*
-
-*You will be marked on the following:*
-
-### a) Your code for readability and functionality
-
-### b) Your figures for communication
-
-### c) Your text communication of your analysis
-
-*Below is a template you can use.*
-
-------------------------------------------------------------------------
 
 ### Introduction
 
-The data in this project has been obtained from the Palmer penguin package which contains data about 3 different penguin species, Gentoo, Adelie and Chinstrap. The dataset contains information about multiple variables and characteristics of the penguins but I will be exploring body mass and flipper length of penguins and observe if there is a relationship between these two variables.
+Understanding the relationship between body mass and flipper length in animals is vital to exploring ecological adaptions, efficiency in locomotion and evolutionary traits. This analysis aims to investigate the relationship between body mass and flipper length in chinstrap penguins using statistical methods. We are trying to determine whether the relationship is that of a larger body mass being associated with proportionally longer flippers, which could have implications for improved aquatic locomotion and therefore individual fitness.
 
 ```{r Data Exploration}
 
@@ -135,8 +87,11 @@ penguins_clean <- penguins_raw %>%
 
 colnames(penguins_clean)
 
-
 ```
+
+The data in this project has been obtained from the Palmer penguin package which contains data about 3 different penguin species, Gentoo, Adelie and Chinstrap. Even though I have chosen to focus on body mass and flipper length, there are many other variables available in the data set. The data on chinstrap penguins can be found on rows 278 to 345 in the data and I will be analysis that chunk of data only.
+
+Above I have loaded and cleaned the data to remove any errors, inconsistencies and irrelevant information in the raw data to ensure accuracy and reliability in the statistical tests carried out below.
 
 ### Hypothesis
 
@@ -146,7 +101,9 @@ HA: There will be a significant increase in flipper length as body mass increase
 
 ### Statistical Methods
 
-I am first carrying out a normality test to check if the data set is approximately normally distributed and fits the assumtpions required to carry out parametric statistical tests.
+I am first carrying out a normality test to check if the data set follows an approximate normal (Gaussian) distribution and fits the assumptions required to carry out parametric statistical tests.
+
+I chose to carry out correlation testing and linear regression as my statistical tests for the analysis of the relationship between body mass and flipper length because these are suitable for examining and quantifying the strength and direction of a relationship between two continuous variables. Pearson's correlation test will tell us how strongly body mass and flipper length are linearly related whilst a linear regression can model the relationship and predict how changes in body mass can predict changes in flipper length.
 
 ```{r Statistics}
 
@@ -196,11 +153,11 @@ plot(chinstrap_lm, which = 5,
 
 ### Results & Discussion
 
-From the normality test we can see that the QQ plot the data follows the diagonal line so the data set fulfills the assumptions for parametric statistical testing and is approximately normally distributed so we can do a Pearson's correlation test and do a linear regression analysis. 
+From the normality test we can see that the QQ plot the data follows the diagonal line and the residuals vs fitted graph shows variance was relatively consistent. From this we can establish that the data set fulfills the assumptions for parametric statistical testing and is approximately normally distributed so we can do a Pearson's correlation test and do a linear regression analysis. 
 
 ```{r Plotting Results}
 
-#Scatter plot showing body mass against flipper length 
+#Scatter plot showing body mass against flipper length - exploratory figure
 
 ggplot(data = penguins_clean[278:345, ],
        aes(x = body_mass_g, y = flipper_length_mm)) + 
@@ -213,14 +170,19 @@ labs(title = "Scatter Plot: Body Mass vs Flipper Length",
   theme_minimal()
 
 
-#Correlation test 
+#Correlation test -> statistical test 
 
 cor.test(penguins_clean$body_mass_g[278:345], 
          penguins_clean$flipper_length_mm[278:345], 
          method = "pearson")  
 
 
-#Linear regression 
+
+#Linear regression + results figure 
+
+chinstrap_data <- penguins_clean[278:375, ]
+
+chinstrap_lm <-lm(flipper_length_mm ~ body_mass_g, data = chinstrap_data)
 
 summary(chinstrap_lm)
 
@@ -256,18 +218,14 @@ Both analysis suggest a statistically significant positive relationship between 
 
 ### a) GitHub
 
-*Upload your RProject you created for **Question 2** and any files and subfolders used to GitHub. Do not include any identifiers such as your name. Make sure your GitHub repo is public.*
-
 *GitHub link:*
 https://github.com/sum4ita/Reproducible_science
 
-*You will be marked on your repo organisation and readability.*
 
 ### b) Share your repo with a partner, download, and try to run their data pipeline.
 
 *Partner's GitHub link:*
 
-*You **must** provide this so I can verify there is no plagiarism between you and your partner.*
 
 ### c) Reflect on your experience running their code. (300-500 words)
 
