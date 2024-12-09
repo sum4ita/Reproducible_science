@@ -232,18 +232,43 @@ Both analysis suggest a statistically significant positive relationship between 
 
 -   *What elements of your partner's code helped you to understand their data pipeline?*
 
+Many components of my partner's code helped me understand their pipeline with ease. Firstly, it was very clearly organised with specific and distinct chunks, with each area focusing on a specific task whether it was loading the data, cleaning the data or carrying out statistic tests or generating figures. The separation of each section into chunks made it very easy to follow along.
+
+She also had extensive use of comments to let the user know exactly what was being done in each step which provided a clear understanding of each section of code, which I thought was quite easy to follow and provided a good basic description of the code's function or purpose. 
+
+She also used tools effectively for example, she cleaned the data and removed unnecessary data from the raw data set to improve readability and data handling, so overall she has a generally accessible and reliable statistical and graphical analysis of Adelie penguins' culmen length and culmen depth that can be considered reproducible.
+
 -   *Did it run? Did you need to fix anything?*
+
+My partner's code ran smoothly and with no problems and I did not need to make any changes to the code.
 
 -   *What suggestions would you make for improving their code to make it more understandable or reproducible, and why?*
 
+To improve the code in terms of understanding and reproducibility there are a couple things my partner could do. One of them is slightly clearer comment at the beginning of the code. Whilst her comment use was generally thorough I believe she could have been more specific with commenting in instructions on how to install packages for future users instead of just mentioning it. Expanding comments such as this will make the data more accessible and readable to users who may not be familiar with using the programme, the data being used or even the packages. 
+
+A new user may possibly run into some confusion as when my partner filters out the Adelie species from the data set to focus on she does not emphasise the significance of this step. Whilst there is a comment mentioning this step there is no further comments explaining why this step is important and a new user with no prior knowledge of the data set may be prone to overlooking this. Adding a comment about picking out the Adelie species out the data set would improve the understanding of a future user.
+
+Lastly I would suggest a brief README file to help new users get a quick overview of the data for better understanding.
+
 -   *If you needed to alter your partner's figure using their code, do you think that would be easy or difficult, and why?*
+
+I believe it would be quite easy to alter my partner's code. Everything is very well labelled and split into chunks and it would not require extensive searching to know what to modify. For example, if I wanted to modify a figure it would be simple to find the code as it is labelled with comments and each major step is in its own chunk. 
+
+Especially for plots the code is quite straightforward and we can identify what lines are specific for what visual aspects, and this would be easy to alter.
+
 
 ### d) Reflect on your own code based on your experience with your partner's code and their review of yours. (300-500 words)
 
--   *What improvements did they suggest, and do you agree?* One of the key suggestions my partner made was to include more descriptive comments for each area of code. I currently have brief explanations such as 'linear regression - results figure' and they have pointed out that these labels might be too general to get across the purpose or significance of the code. She suggested that I expand my labels to something like 'Generating a linear regression to analyse the relationship between body mass and flipper length'. I agree with this suggestion/feedback as providing more context not only makes the code more accessible for other users but it also makes sure the users have a clear understanding of the broader purpose of each step being carried out, especially if they have not previously worked with the data set or don't have a clear understanding of the methodology.
+-   *What improvements did they suggest, and do you agree?* 
+One of the key suggestions my partner made was to include more descriptive comments for each area of code. I currently have brief explanations such as 'linear regression - results figure' and they have pointed out that these labels might be too general to get across the purpose or significance of the code. She suggested that I expand my labels to something like 'Generating a linear regression to analyse the relationship between body mass and flipper length'. I agree with this suggestion/feedback as providing more context not only makes the code more accessible for other users but it also makes sure the users have a clear understanding of the broader purpose of each step being carried out, especially if they have not previously worked with the data set or don't have a clear understanding of the methodology. The main takeaway from my partner's review is that I need to work on adding specific comments into the code instead of explaining the steps I'm taking outside of the code as a paragraph as new users may overlook the explanations for the code. 
+
 
 Another area of improvement highlighted by my partner is the lack of clarity on my document on what packages are required to run this code. They mentioned they had to install several packages, which was flagged by RStudio to be able to successfully run my code. I agree that including a comprehensive list of required packages at the beginning of the script and also include instructions for installation would create a more accessible and effortless experience for future users.
 
 Lastly she mentioned that there are some unnecessary spaces or lines and occasional inconsistencies in my coding which disrupted readability of the code. I agree that maintaining consistent formatting allows for the code to be better visually organised and small details such as formatting can have a significant impact on user experience.
 
--   *What did you learn about writing code for other people?* Writing code for other people has allowed me to understand the importance of writing code with clear instructions and clear structure. Code intended for other people has to be easily navigated, as it can be often used by people with different levels of skills in coding and also different levels of familiarity with the data set being used, the tools required or the objectives we are trying to reach. I learned that detailed commentary is important to bridge the gap between the code and the understanding of the function of the code and clear, straightforward and consistent formatting that is visually easy to understand and follow goes a long way. Lastly, I have understood that writing code for others requires designing code that can be adaptable and also easily modifiable, so future users are able to ecplore various otucomes and interact with the data more effectively.
+
+-   *What did you learn about writing code for other people?* 
+Writing code for other people has allowed me to understand the importance of writing code with clear instructions and clear structure. Code intended for other people has to be easily navigated, as it can be often used by people with different levels of skills in coding and also different levels of familiarity with the data set being used, the tools required or the objectives we are trying to reach. I learned that detailed commentary is important to bridge the gap between the code and the understanding of the function of the code and clear, straightforward and consistent formatting that is visually easy to understand and follow goes a long way. 
+
+Lastly, I have understood that writing code for others requires designing code that can be adaptable and also easily modifiable, so future users are able to explore various outcomes and interact with the data more effectively. Within this, I have also learnt the importance of saving a copy of the original data to prevent overwriting as that would not allow for reproducibility.
