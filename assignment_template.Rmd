@@ -70,7 +70,7 @@ Understanding the relationship between body mass and flipper length in animals i
 
 ```{r Data Exploration}
 
-
+#Loading and cleaning the data
 
 library(tidyverse)
 library(palmerpenguins)
@@ -120,10 +120,10 @@ chinstrap_data <- penguins_clean[278:375, ]
 chinstrap_lm <-lm(flipper_length_mm ~ body_mass_g, data = chinstrap_data)
 
 
-# Set up a 2x2 plotting layout
+#Set up a 2x2 plotting layout
 par(mfrow = c(2, 2))  # Set plotting layout to 2x2
 
-# 1. Residuals vs. Fitted
+#Residuals vs fitted
 plot(chinstrap_lm$fitted.values, chinstrap_lm$residuals, 
      main = "Residuals vs Fitted", 
      xlab = "Fitted Values", 
@@ -131,13 +131,13 @@ plot(chinstrap_lm$fitted.values, chinstrap_lm$residuals,
      pch = 20, col = "darkgreen")
 abline(h = 0, col = "red", lty = 2)
 
-# 2. QQ Plot for Residuals
+#QQ plot for residuals
 qqnorm(chinstrap_lm$residuals, 
        main = "QQ Plot of Residuals", 
        pch = 20, col = "darkgreen")
 qqline(chinstrap_lm$residuals, col = "red", lty = 2)
 
-# 3. Scale-Location Plot
+#Scale-location plot
 plot(chinstrap_lm$fitted.values, sqrt(abs(chinstrap_lm$residuals)), 
      main = "Scale-Location Plot", 
      xlab = "Fitted Values", 
@@ -145,7 +145,7 @@ plot(chinstrap_lm$fitted.values, sqrt(abs(chinstrap_lm$residuals)),
      pch = 20, col = "darkgreen")
 abline(h = 0, col = "red", lty = 2)
 
-# 4. Residuals vs. Leverage
+#Residuals vs leverage
 plot(chinstrap_lm, which = 5, 
      main = "Residuals vs Leverage", 
      col = "darkgreen", pch = 20)
