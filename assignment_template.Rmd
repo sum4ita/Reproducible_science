@@ -260,6 +260,7 @@ Especially for plots the code is quite straightforward and we can identify what 
 ### d) Reflect on your own code based on your experience with your partner's code and their review of yours. (300-500 words)
 
 -   *What improvements did they suggest, and do you agree?* 
+
 One of the key suggestions my partner made was to include more descriptive comments for each area of code. I currently have brief explanations such as 'linear regression - results figure' and they have pointed out that these labels might be too general to get across the purpose or significance of the code. She suggested that I expand my labels to something like 'Generating a linear regression to analyse the relationship between body mass and flipper length'. I agree with this suggestion/feedback as providing more context not only makes the code more accessible for other users but it also makes sure the users have a clear understanding of the broader purpose of each step being carried out, especially if they have not previously worked with the data set or don't have a clear understanding of the methodology. The main takeaway from my partner's review is that I need to work on adding specific comments into the code instead of explaining the steps I'm taking outside of the code as a paragraph as new users may overlook the explanations for the code. 
 
 
@@ -269,6 +270,7 @@ Lastly she mentioned that there are some unnecessary spaces or lines and occasio
 
 
 -   *What did you learn about writing code for other people?* 
+
 Writing code for other people has allowed me to understand the importance of writing code with clear instructions and clear structure. Code intended for other people has to be easily navigated, as it can be often used by people with different levels of skills in coding and also different levels of familiarity with the data set being used, the tools required or the objectives we are trying to reach. I learned that detailed commentary is important to bridge the gap between the code and the understanding of the function of the code and clear, straightforward and consistent formatting that is visually easy to understand and follow goes a long way. 
 
 Lastly, I have understood that writing code for others requires designing code that can be adaptable and also easily modifiable, so future users are able to explore various outcomes and interact with the data more effectively. Within this, I have also learnt the importance of saving a copy of the original data to prevent overwriting as that would not allow for reproducibility.
