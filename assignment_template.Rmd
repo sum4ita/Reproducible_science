@@ -1,9 +1,20 @@
+---
+title: "Homework Template"
+output:
+  html_document: default
+  pdf_document: default
+date: "2023-10-09"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 ## QUESTION 01: Data Visualisation for Science Communication
 
 ### a) Provide your figure here:
 
-```{r bad figure code, echo=FALSE}
+```{r bad figure code, echo=FALSE, message=FALSE, warning=FALSE}
 
 
 library(tidyverse)
@@ -11,12 +22,6 @@ library(palmerpenguins)
 library(janitor)
 library(here)
 
-head(penguins_raw)
-colnames(penguins_raw)
-
-here("data")
-
-here("data", "penguins_raw.csv")
 
 write_csv(penguins_raw, here("data", "penguins_raw.csv"))
 
@@ -26,6 +31,7 @@ penguins_clean <- penguins_raw %>%
   select(-starts_with("Delta")) %>%
   clean_names()
 
+#Scatterplot for body mass and flipper length
 library(ggplot2)
 ggplot(penguins_clean, aes(x = `body_mass_g`, y = `flipper_length_mm`)) +
   geom_point(color = "grey", alpha = 0.2) +
@@ -44,23 +50,19 @@ ggplot(penguins_clean, aes(x = `body_mass_g`, y = `flipper_length_mm`)) +
 
 ### b) Write about how your design choices mislead the reader about the underlying data (200-300 words).
 
-The x and y axis are both truncated so there are points that are not seen on the graph that lie outside the range of the graph. The x axis is 3000 to 5000 whilst the y axis is 170 to 200. This is a design choice that selectively reports, which is a major cause of research that is not reproducible (Baker, 2016). This misleads the reader as the data seems much more clustered and consistent that it actually is. By skipping points that could be considered outliers and also decreasing the broader range, there could be a stronger perceived strength in association between flipper length and body mass, whilst this may not be the case. 
+The x and y axis are both truncated so there are points that are not seen on the graph that lie outside the range of the graph. The x axis is 3000 to 5000 whilst the y axis is 170 to 200. This is a design choice that selectively reports, which is a major cause of research that is not reproducible (Baker, 2016). This misleads the reader as the data seems much more clustered and consistent that it actually is. By skipping points that could be considered outliers and also decreasing the broader range, there could be a stronger perceived strength in association between flipper length and body mass, whilst this may not be the case.
 
 Another poor design choice to be considered is the colouring. There are 3 different species of penguins being represented in this data currently, and in this graph it is not distinguishable which is misleading as the data seems to belong to one group only when this is not the case. The relationship between flipper length and body mass could be different between each species, however this has not been visualised.
 
 Furthermore, there is poor visual clarity in the scatter plot due to the dull grey colour and use of low opacity (alpha = 0.2). This reduces visibility and many overlapping plots may not be seen. It can also affect how we analyse density of data in different regions and mislead readers by obscuring patterns in the data or overstating importance of certain results and increase bias in the results (National Academies of Sciences, 2019).
 
-Baker, M. (2016). 1,500 scientists lift the lid on reproducibility. Nature, [online] 533(7604), pp.452–454. doi:https://doi.org/10.1038/533452a.
+Baker, M. (2016). 1,500 scientists lift the lid on reproducibility. Nature, [online] 533(7604), pp.452–454. <doi:https://doi.org/10.1038/533452a>.
 
-National Academies of Sciences (2019). Understanding Reproducibility and Replicability. [online] www.ncbi.nlm.nih.gov. National Academies Press (US). Available at: https://www.ncbi.nlm.nih.gov/books/NBK547546/.
-
-
-
+National Academies of Sciences (2019). Understanding Reproducibility and Replicability. [online] www.ncbi.nlm.nih.gov. National Academies Press (US). Available at: <https://www.ncbi.nlm.nih.gov/books/NBK547546/>.
 
 ------------------------------------------------------------------------
 
 ## QUESTION 2: Data Pipeline
-
 
 ### Introduction
 
@@ -79,9 +81,6 @@ library(ggplot2)
 head(penguins_raw)
 colnames(penguins_raw)
 
-here("data")
-
-here("data", "penguins_raw.csv")
 
 write_csv(penguins_raw, here("data", "penguins_raw.csv"))
 
@@ -158,7 +157,7 @@ plot(chinstrap_lm, which = 5,
 
 ### Results & Discussion
 
-From the normality test we can see that the QQ plot the data follows the diagonal line and the residuals vs fitted graph shows variance was relatively consistent. From this we can establish that the data set fulfills the assumptions for parametric statistical testing and is approximately normally distributed so we can do a Pearson's correlation test and do a linear regression analysis. 
+From the normality test we can see that the QQ plot the data follows the diagonal line and the residuals vs fitted graph shows variance was relatively consistent. From this we can establish that the data set fulfills the assumptions for parametric statistical testing and is approximately normally distributed so we can do a Pearson's correlation test and do a linear regression analysis.
 
 ```{r Plotting Results}
 
@@ -213,7 +212,7 @@ The results obtained from both the Pearson's correlation test and the linear reg
 
 The Pearson correlation coefficient (r=0.6398) shows a moderately strong positive correlation and the p value (p=5.584e-09) is highly significant as the p value is smaller then 0.001 so we can reject the null hypothesis. The 95% confidence interval for the correlation coefficient (0.4722 to 0.7628) also supports this.
 
-The linear regression analysis also shows agreement with these results. The slope coefficient (β1=0.01188) shows that on average an increase in 1 gram of body mass leads to an increase of 0.01188 mm in flipper length. The intercept (β0=151.49) suggests 151.49mm to be the flipper length when body mass is 0, however this is not realistic. Both the slope and intercept are however significant as the p value (p=5.58e-09) is smaller than 0.001. This model explains approximately 40.94% of the variance in flipper length (R^2=0.4094) which suggests the model is not sufficient for high prevision predictions as almost 60% of variation is unexplained. 
+The linear regression analysis also shows agreement with these results. The slope coefficient (β1=0.01188) shows that on average an increase in 1 gram of body mass leads to an increase of 0.01188 mm in flipper length. The intercept (β0=151.49) suggests 151.49mm to be the flipper length when body mass is 0, however this is not realistic. Both the slope and intercept are however significant as the p value (p=5.58e-09) is smaller than 0.001. This model explains approximately 40.94% of the variance in flipper length (R\^2=0.4094) which suggests the model is not sufficient for high prevision predictions as almost 60% of variation is unexplained.
 
 Both analysis suggest a statistically significant positive relationship between body mass and flipper length. The linear regression model does show the relationship but it also suffests that there may be other factors influencing flipper length as seen through the unexplained variation and exploring mroe variables could improve the model.
 
@@ -223,14 +222,11 @@ Both analysis suggest a statistically significant positive relationship between 
 
 ### a) GitHub
 
-*GitHub link:*
-https://github.com/sum4ita/Reproducible_science
-
+*GitHub link:* <https://github.com/sum4ita/Reproducible_science>
 
 ### b) Share your repo with a partner, download, and try to run their data pipeline.
 
-*Partner's GitHub link:*
-
+*Partner's GitHub link:* <https://github.com/MHR060804/ReproducibleScienceAssignment/tree/dev>
 
 ### c) Reflect on your experience running their code. (300-500 words)
 
@@ -244,12 +240,10 @@ https://github.com/sum4ita/Reproducible_science
 
 ### d) Reflect on your own code based on your experience with your partner's code and their review of yours. (300-500 words)
 
--   *What improvements did they suggest, and do you agree?*
-One of the key suggestions my partner made was to include more descriptive comments for each area of code. I currently have brief explanations such as 'linear regression - results figure' and they have pointed out that these labels might be too general to get across the purpose or significance of the code. She suggested that I expand my labels to something like 'Generating a linear regression to analyse the relationship between body mass and flipper length'. I agree with this suggestion/feedback as providing more context not only makes the code more accessible for other users but it also makes sure the users have a clear understanding of the broader purpose of each step being carried out, especially if they have not previously worked with the data set or don't have a clear understanding of the methodology. 
+-   *What improvements did they suggest, and do you agree?* One of the key suggestions my partner made was to include more descriptive comments for each area of code. I currently have brief explanations such as 'linear regression - results figure' and they have pointed out that these labels might be too general to get across the purpose or significance of the code. She suggested that I expand my labels to something like 'Generating a linear regression to analyse the relationship between body mass and flipper length'. I agree with this suggestion/feedback as providing more context not only makes the code more accessible for other users but it also makes sure the users have a clear understanding of the broader purpose of each step being carried out, especially if they have not previously worked with the data set or don't have a clear understanding of the methodology.
 
 Another area of improvement highlighted by my partner is the lack of clarity on my document on what packages are required to run this code. They mentioned they had to install several packages, which was flagged by RStudio to be able to successfully run my code. I agree that including a comprehensive list of required packages at the beginning of the script and also include instructions for installation would create a more accessible and effortless experience for future users.
 
 Lastly she mentioned that there are some unnecessary spaces or lines and occasional inconsistencies in my coding which disrupted readability of the code. I agree that maintaining consistent formatting allows for the code to be better visually organised and small details such as formatting can have a significant impact on user experience.
 
--   *What did you learn about writing code for other people?*
-Writing code for other people has allowed me to understand the importance of writing code with clear instructions and clear structure. Code intended for other people has to be easily navigated, as it can be often used by people with different levels of skills in coding and also different levels of familiarity with the data set being used, the tools required or the objectives we are trying to reach. I learned that detailed commentary is important to bridge the gap between the code and the understanding of the function of the code and clear, straightforward and consistent formatting that is visually easy to understand and follow goes a long way. Lastly, I have understood that writing code for others requires designing code that can be adaptable and also easily modifiable, so future users are able to ecplore various otucomes and interact with the data more effectively. 
+-   *What did you learn about writing code for other people?* Writing code for other people has allowed me to understand the importance of writing code with clear instructions and clear structure. Code intended for other people has to be easily navigated, as it can be often used by people with different levels of skills in coding and also different levels of familiarity with the data set being used, the tools required or the objectives we are trying to reach. I learned that detailed commentary is important to bridge the gap between the code and the understanding of the function of the code and clear, straightforward and consistent formatting that is visually easy to understand and follow goes a long way. Lastly, I have understood that writing code for others requires designing code that can be adaptable and also easily modifiable, so future users are able to ecplore various otucomes and interact with the data more effectively.
